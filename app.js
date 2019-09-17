@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mkcert = require("mkcert");
 const https = require("https");
+const sn = require("serial-number");
 const fs = require("fs");
 
 const app = express();
@@ -55,6 +56,13 @@ const options = {
 // }
 
 // genCert();
+
+sn((err, val) => {
+  if (err) {
+    throw new Error(err.message);
+  }
+  console.log("SN: ", val);
+});
 
 https.createServer(options, app).listen(3000, (req, res) => {
   console.log("app running on 3000");
